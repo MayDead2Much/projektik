@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour {
 		{
 			enemy.GetComponent<EnemyController>().stats.hp -= 10;
 			attacked = true;
+			if(enemy.GetComponent<EnemyController>().stats.hp <= 0) {
+				enemy.transform.position = enemy.transform.position - new Vector3(0.0f, 1.0f, 0.0f);
+				Destroy(enemy, 1.0f);
+			}
 		}
 	}
 }
