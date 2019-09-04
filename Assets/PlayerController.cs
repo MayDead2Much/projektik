@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour {
 	public NavMeshAgent agent;
 	public GameObject enemy;
 	public Stats stats;
+	private bool attacked;
 
 	// Use this for initialization
 	void Start () {
 		stats = new Stats(250, 150, 12);
+		attacked = false;
 	}
 	
 	// Update is called once per frame
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 				{
 					enemy = hit.transform.gameObject;
 					Attack();
+					attacked = false;
 				}
 				else
 					enemy = null;
@@ -38,9 +41,10 @@ public class PlayerController : MonoBehaviour {
 
 	void Attack()
 	{
-		if (enemy != null && Input.GetMouseButton(0))
+		if (enemy != null && Input.GetMouseButton(0) && attacked == false)
 		{
 			enemy.GetComponent<EnemyController>().stats.hp -= 10;
+			attacked = true;
 		}
 	}
 }
