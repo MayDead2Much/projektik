@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 				if (hit.transform.tag == "enemy")
 				{
 					enemy = hit.transform.gameObject;
+					Attack();
 				}
 				else
 					enemy = null;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (enemy != null && Input.GetMouseButton(0))
 		{
-			enemy.GetComponent<EnemyController>().stats.
+			enemy.GetComponent<EnemyController>().stats.hp -= 10;
 		}
 	}
 }
