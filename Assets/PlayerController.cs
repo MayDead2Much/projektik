@@ -8,12 +8,12 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject player;
 	public NavMeshAgent agent;
-
+	public GameObject enemy;
 	public Stats stats;
 
 	// Use this for initialization
 	void Start () {
-		stats = new Stats(250, 150);
+		stats = new Stats(250, 150, 12);
 	}
 	
 	// Update is called once per frame
@@ -23,8 +23,23 @@ public class PlayerController : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 			if(Physics.Raycast(ray, out hit)) {
+				if (hit.transform.tag == "enemy")
+				{
+					enemy = hit.transform.gameObject;
+				}
+				else
+					enemy = null;
 				agent.SetDestination(hit.point);
+				
 			}
+		}
+	}
+
+	void Attack()
+	{
+		if (enemy != null && Input.GetMouseButton(0))
+		{
+			enemy.GetComponent<EnemyController>().stats.
 		}
 	}
 }

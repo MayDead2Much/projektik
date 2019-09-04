@@ -11,10 +11,10 @@ public class EnemyController : MonoBehaviour {
 	public bool chase = false;
 
 	public float fireRate = 1.0f;
-
+	public Stats stats;
 	// Use this for initialization
 	void Start () {
-		
+		stats = new Stats(100, 75, 8);
 	}
 	
 	// Update is called once per frame
