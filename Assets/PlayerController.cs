@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour {
 	public GameObject player;
 	public NavMeshAgent agent;
 
+	public Stats stats;
+
 	// Use this for initialization
 	void Start () {
-		
+		stats = new Stats(250, 150);
 	}
 	
 	// Update is called once per frame
