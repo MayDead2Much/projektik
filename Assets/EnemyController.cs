@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stats = new Stats(100, 75, 8);
+		stats = new Stats(100, 75, 8, 2);
 	}
 	
 	// Update is called once per frame

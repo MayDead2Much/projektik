@@ -20,14 +20,14 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stats = new Stats(250, 150, 12);
+		stats = new Stats(250, 150, 12, 1.5);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		time += Time.deltaTime;
 
-		if(Input.GetMouseButton(1)) {
+		if(Input.GetMouseButtonDown(0)) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour {
 				if (hit.transform.tag == "enemy")
 				{
 					enemy = hit.transform.gameObject;
-					Attack();
 				}
 				else
 					enemy = null;
@@ -43,15 +42,17 @@ public class PlayerController : MonoBehaviour {
 				
 			}
 		}
+
+		Attack();
 	}
 
 	/// <summary>
 	///	Attacks
 	/// </summary>
 	void Attack()
-	{
-		if(lastTime + < time) {
-			if (enemy != null && Input.GetMouseButton(0))
+	{	
+		if(lastTime + stats.attackSpeed < time) {
+			if (enemy != null && Input.GetMouseButtonDown(0))
 			{
 				enemy.GetComponent<EnemyController>().stats.hp -= 10;
 				attacked = true;
@@ -59,7 +60,8 @@ public class PlayerController : MonoBehaviour {
 					enemy.transform.position = enemy.transform.position - new Vector3(0.0f, 1.0f, 0.0f);
 					Destroy(enemy, 1.0f);
 				}
-			}
+				lastTime = time;
+			}	
 		}
 	}
 }
