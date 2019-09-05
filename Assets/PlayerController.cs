@@ -4,6 +4,9 @@ using UnityEngine;
 
 using UnityEngine.AI;
 
+// TODO Player hit cooldown
+// TODO Spells
+// TODO Better fighting system
 public class PlayerController : MonoBehaviour {
 
 	public GameObject player;
@@ -11,16 +14,20 @@ public class PlayerController : MonoBehaviour {
 	public GameObject enemy;
 	public Stats stats;
 	private bool attacked;
+	
+	public float lastTime;
+	public float time;
 
 	// Use this for initialization
 	void Start () {
 		stats = new Stats(250, 150, 12);
-		attacked = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButton(0)) {
+		time += Time.deltaTime;
+
+		if(Input.GetMouseButton(1)) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -29,7 +36,6 @@ public class PlayerController : MonoBehaviour {
 				{
 					enemy = hit.transform.gameObject;
 					Attack();
-					attacked = false;
 				}
 				else
 					enemy = null;
@@ -39,15 +45,20 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	///	Attacks
+	/// </summary>
 	void Attack()
 	{
-		if (enemy != null && Input.GetMouseButton(0) && attacked == false)
-		{
-			enemy.GetComponent<EnemyController>().stats.hp -= 10;
-			attacked = true;
-			if(enemy.GetComponent<EnemyController>().stats.hp <= 0) {
-				enemy.transform.position = enemy.transform.position - new Vector3(0.0f, 1.0f, 0.0f);
-				Destroy(enemy, 1.0f);
+		if(lastTime + < time) {
+			if (enemy != null && Input.GetMouseButton(0))
+			{
+				enemy.GetComponent<EnemyController>().stats.hp -= 10;
+				attacked = true;
+				if(enemy.GetComponent<EnemyController>().stats.hp <= 0) {
+					enemy.transform.position = enemy.transform.position - new Vector3(0.0f, 1.0f, 0.0f);
+					Destroy(enemy, 1.0f);
+				}
 			}
 		}
 	}
