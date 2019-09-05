@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CamerControl : MonoBehaviour 
+public class CameraControl : MonoBehaviour 
 {
 	public Transform target;
 	private Vector3 offset;

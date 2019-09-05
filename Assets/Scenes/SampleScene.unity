@@ -591,6 +591,8 @@ MonoBehaviour:
     hp: 0
     mana: 0
     attackSpeed: 0
+  lastTime: 0
+  time: 0
 --- !u!195 &1677775832
 NavMeshAgent:
   m_ObjectHideFlags: 0
