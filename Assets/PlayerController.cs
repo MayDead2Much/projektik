@@ -7,24 +7,22 @@ using UnityEngine.AI;
 // TODO Player hit cooldown
 // TODO Spells
 // TODO Better fighting system
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour 
+{
 
 	public GameObject player;
 	public NavMeshAgent agent;
 	public GameObject enemy;
 	public Stats stats;
 	private bool attacked;
-	
 	public float lastTime;
 	public float time;
 
-	// Use this for initialization
 	void Start () {
 		stats = new Stats(250, 150, 12, 1.5);
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update (Collider other) {
 		time += Time.deltaTime;
 
 		if(Input.GetMouseButtonDown(0)) {
