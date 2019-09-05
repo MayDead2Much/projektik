@@ -4,7 +4,8 @@ using UnityEngine;
 
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour 
+{
 
 	public GameObject player;
 	public NavMeshAgent agent;
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stats = new Stats(250, 150, 12);
+		stats = new Stats(250, 150, 12, 1.5);
 		attacked = false;
 	}
 	
