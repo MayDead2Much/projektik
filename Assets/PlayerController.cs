@@ -9,11 +9,10 @@ using UnityEngine.AI;
 // TODO Better fighting system
 public class PlayerController : MonoBehaviour 
 {
-
-	public GameObject player;
 	public NavMeshAgent agent;
 	public GameObject enemy;
 	public Stats stats;
+	public float hitRadius = 3.0f;
 	private bool attacked;
 	public float lastTime;
 	public float time;
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
 		stats = new Stats(250, 150, 12, 1.5);
 	}
 	
-	void Update (Collider other) {
+	void Update () {
 		time += Time.deltaTime;
 
 		if(Input.GetMouseButtonDown(0)) {
@@ -35,9 +34,10 @@ public class PlayerController : MonoBehaviour
 					enemy = hit.transform.gameObject;
 				}
 				else
-					enemy = null;
-				agent.SetDestination(hit.point);
-				
+				{
+					enemy = null;	
+				}
+				agent.SetDestination(hit.point);	
 			}
 		}
 
@@ -50,9 +50,9 @@ public class PlayerController : MonoBehaviour
 	void Attack()
 	{	
 		if(lastTime + stats.attackSpeed < time) {
-			if (enemy != null && Input.GetMouseButtonDown(0))
+			if (enemy != null && Input.GetMouseButtonDown(0) && Vector3.Distance(transform.position, enemy.transform.position) < hitRadius)
 			{
-				enemy.GetComponent<EnemyController>().stats.hp -= 10;
+				enemy.GetComponent<EnemyController>().stats.hp -= stats.attack;
 				attacked = true;
 				if(enemy.GetComponent<EnemyController>().stats.hp <= 0) {
 					enemy.transform.position = enemy.transform.position - new Vector3(0.0f, 1.0f, 0.0f);

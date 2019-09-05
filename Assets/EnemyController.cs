@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
 	public GameObject player;
 	public bool chase = false;
 	public Stats stats;
-	public float fireRate = 1000.0f;
 	public float hitRadius = 3.0f;
 	public float time;
 	public float lastTime;
@@ -26,9 +25,9 @@ public class EnemyController : MonoBehaviour
 			GetComponent<NavMeshAgent>().SetDestination(player.transform.position);
 		}
 
-		if(lastTime + fireRate < time) {
+		if(lastTime + stats.attackSpeed < time) {
 			if(Vector3.Distance(player.transform.position, transform.position) < hitRadius) {
-				player.GetComponent<PlayerController>().stats.hp -= 5;
+				player.GetComponent<PlayerController>().stats.hp -= stats.attack;
 				player.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(player.transform.position - transform.position) * 500.0f, ForceMode.Force);
 				lastTime = time;
 			}
