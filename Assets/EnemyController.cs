@@ -7,12 +7,11 @@ public class EnemyController : MonoBehaviour
 	public GameObject player;
 	public bool chase = false;
 	public Stats stats;
-	public float hitRadius = 3.0f;
 	public float time;
 	public float lastTime;
 
 	void Start () {
-		stats = new Stats(100, 75, 8, 2);
+		stats = new Stats(100, 75, 8, 2f, 3f);
 	}
 	
 	void Update () {
@@ -26,7 +25,7 @@ public class EnemyController : MonoBehaviour
 		}
 
 		if(lastTime + stats.attackSpeed < time) {
-			if(Vector3.Distance(player.transform.position, transform.position) < hitRadius) {
+			if(Vector3.Distance(player.transform.position, transform.position) < stats.hitRadius) {
 				player.GetComponent<PlayerController>().stats.hp -= stats.attack;
 				player.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(player.transform.position - transform.position) * 500.0f, ForceMode.Force);
 				lastTime = time;

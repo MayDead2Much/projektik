@@ -12,13 +12,12 @@ public class PlayerController : MonoBehaviour
 	public NavMeshAgent agent;
 	public GameObject enemy;
 	public Stats stats;
-	public float hitRadius = 3.0f;
 	private bool attacked;
 	public float lastTime;
 	public float time;
 
 	void Start () {
-		stats = new Stats(250, 150, 12, 1.5);
+		stats = new Stats(250, 150, 12, 1.5f, 3f);
 	}
 	
 	void Update () {
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
 	void Attack()
 	{	
 		if(lastTime + stats.attackSpeed < time) {
-			if (enemy != null && Input.GetMouseButtonDown(0) && Vector3.Distance(transform.position, enemy.transform.position) < hitRadius)
+			if (enemy != null && Input.GetMouseButtonDown(0) && Vector3.Distance(transform.position, enemy.transform.position) < stats.hitRadius)
 			{
 				enemy.GetComponent<EnemyController>().stats.hp -= stats.attack;
 				attacked = true;
